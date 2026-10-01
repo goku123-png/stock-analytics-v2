@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: fct_monthly_stock
+    description: "One row per stock per month."
+
+    columns:
+      - name: stock_month_key
+        data_tests:
+          - unique
+          - not_null
+
+      - name: company_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_company')
+                field: company_key
+
+      - name: month_date_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key

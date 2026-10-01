@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: stock_raw
+    schema: raw
+    tables:
+      - name: stock_prices

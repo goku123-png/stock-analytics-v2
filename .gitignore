@@ -1,0 +1,30 @@
+# Python environment and cache
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local credentials
+.env
+.env.*
+!.env.example
+
+# Generated data and database
+/data/raw/
+/data/processed/
+/warehouse/
+*.duckdb
+*.duckdb.wal
+
+# Generated quality reports
+/docs/data_quality/
+
+# dbt generated files
+/target/
+/logs/
+/dbt_packages/
+/.user.yml
+
+# Backups and macOS files
+*.bak
+.DS_Store

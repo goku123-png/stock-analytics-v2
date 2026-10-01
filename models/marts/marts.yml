@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: dim_company
+    description: "One row per company in the five-stock analysis."
+    columns:
+      - name: company_key
+        description: "Stable company identifier."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: ticker
+        description: "Stock ticker."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: company_name
+        description: "Company display name."
+        data_tests:
+          - not_null
+
+  - name: dim_date
+    description: "One row per calendar day, covering complete years."
+    columns:
+      - name: date_key
+        description: "Date identifier in YYYYMMDD format."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: full_date
+        description: "Calendar date."
+        data_tests:
+          - unique
+          - not_null
