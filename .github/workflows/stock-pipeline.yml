@@ -1,4 +1,4 @@
-name: Stock Analytics Pipeline
+name: Stock Analytics Pineline
 
 on:
   workflow_dispatch:
