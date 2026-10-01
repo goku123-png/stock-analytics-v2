@@ -42,7 +42,7 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p logs
-          .venv/bin/python -u script/run_pipeline.py 2>&1 | tee logs/pineline.log
+          .venv/bin/python -u script/run_pineline.py 2>&1 | tee logs/pineline.log
 
       - name: Save Power BI CSV files
         uses: actions/upload-artifact@v7

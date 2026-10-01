@@ -57,7 +57,7 @@ def main():
             )
         except subprocess.CalledProcessError as error:
             print(
-                f"\nPIPELINE FAILED at step {number}: {name}",
+                f"\nPINELINE FAILED at step {number}: {name}",
                 flush=True,
             )
             raise SystemExit(error.returncode)
