@@ -12,7 +12,7 @@ on:
       - "requirements.txt"
       - "dbt_project.yml"
       - "profiles.yml"
-      - ".github/workflows/stock-pipeline.yml"
+      - ".github/workflows/stock-pineline.yml"
 
 permissions:
   contents: read
