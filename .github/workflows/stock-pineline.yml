@@ -1,0 +1,66 @@
+name: Stock Analytics Pipeline
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "script/**"
+      - "models/**"
+      - "tests/**"
+      - "requirements.txt"
+      - "dbt_project.yml"
+      - "profiles.yml"
+      - ".github/workflows/stock-pipeline.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  stock-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Download repository code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12.10"
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/python -m pip install -r requirements.txt
+
+      - name: Run full pipeline
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p logs
+          .venv/bin/python -u script/run_pipeline.py 2>&1 | tee logs/pipeline.log
+
+      - name: Save Power BI CSV files
+        uses: actions/upload-artifact@v7
+        with:
+          name: powerbi-csv
+          path: data/processed/powerbi/*.csv
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Save logs and validation evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: pipeline-evidence
+          path: |
+            logs/
+            docs/data_quality/
+            target/manifest.json
+            target/run_results.json
+          if-no-files-found: warn
+          retention-days: 14
